@@ -1,1 +1,1 @@
-# Leethub
+# Leetcode
