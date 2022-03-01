@@ -2,7 +2,7 @@ class Solution {
 public:
     int search(vector<int>& arr, int target)
     {
-        int n = (int) arr.size();
+        int n =  arr.size();
         
         int low=0;
         int high= n-1;
