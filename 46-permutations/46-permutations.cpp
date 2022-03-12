@@ -1,24 +1,22 @@
 class Solution {
-private:
-    void recurPermute(int index, vector < int > & nums, vector < vector < int >> & ans) 
+public:
+    void permutationUtil(vector<int> &nums, int i, int &numsSize, vector<vector<int>> &answer){
+    if(i == numsSize)
+    
     {
-      if (index == nums.size()) 
-      {
-        ans.push_back(nums);
-        return;
-      }
-      for (int i = index; i < nums.size(); i++) 
-      {
-        swap(nums[index], nums[i]);
-        recurPermute(index + 1, nums, ans);
-        swap(nums[index], nums[i]);
-      }
+        answer.push_back(nums);
     }
-  public:
-    vector < vector < int >> permute(vector < int > & nums) 
-    {
-      vector < vector < int >> ans;
-      recurPermute(0, nums, ans);
-      return ans;
+    for(int j = i; j < numsSize; j++){
+        swap(nums[i], nums[j]);
+        permutationUtil(nums, i+1, numsSize, answer);
+        swap(nums[i], nums[j]);
+    }
+}
+vector<vector<int>> permute(vector<int>& nums) 
+{
+    vector<vector<int>> answer;
+    int numsSize = nums.size();
+    permutationUtil(nums, 0, numsSize, answer);
+    return answer;
     }
 };
