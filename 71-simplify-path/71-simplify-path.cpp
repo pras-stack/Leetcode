@@ -1,89 +1,42 @@
 class Solution {
 public:
-    string simplifyPath(string path)
+    string simplifyPath(string path) 
     {
-         stack<string> st;
- 
-    // temporary string which stores the extracted
-    // directory name or commands("." / "..")
-    // Eg. "/a/b/../."
-    // dir will contain "a", "b", "..", ".";
-    string dir;
- 
-    // contains resultant simplifies string.
-    string res;
- 
-    // every string starts from root directory.
-    res.append("/");
- 
-    // stores length of input string.
-    int len_path = path.length();
- 
-    for (int i = 0; i < len_path; i++) 
-    {
- 
-        // we will clear the temporary string
-        // every time to accommodate new directory
-        // name or command.
-        dir.clear();
- 
-        // skip all the multiple '/' Eg. "/////""
-        while (path[i] == '/')
-            i++;
- 
-        // stores directory's name("a", "b" etc.)
-        // or commands("."/"..") into dir
-        while (i < len_path && path[i] != '/') 
-        {
-            dir.push_back(path[i]);
+        vector<string> v;
+    int n = path.length();
+    string ans;
+    for (int i = 0; i < n; i++) {
+        string dir = "";
+        // forming the current directory.
+        while (i < n && path[i] != '/') {
+            dir += path[i];
             i++;
         }
  
-        // if dir has ".." just pop the topmost
-        // element if the stack is not empty
-        // otherwise ignore.
-        if (dir.compare("..") == 0) 
-        {
-            if (!st.empty())
-                st.pop();           
+        // if ".." , we pop.
+        if (dir == "..") {
+            if (!v.empty())
+                v.pop_back();
         }
- 
-        // if dir has "." then simply continue
-        // with the process.
-        else if (dir.compare(".") == 0)
-            continue;
-         
-        // pushes if it encounters directory's
-        // name("a", "b").
-        else if (dir.length() != 0)
-            st.push(dir);       
+        else if (dir == "." || dir == "") {
+            // do nothing (added for better understanding.)
+        }
+        else {
+            // push the current directory into the vector.
+            v.push_back(dir);
+        }
     }
  
-    // a temporary stack  (st1) which will contain
-    // the reverse of original stack(st).
-    stack<string> st1;
-    while (!st.empty())
-    {
-        st1.push(st.top());
-        st.pop();
+    // forming the ans
+    for (auto i : v) {
+        ans += "/" + i;
     }
  
-    // the st1 will contain the actual res.
-    while (!st1.empty())
-    {
-        string temp = st1.top();
-         
-        // if it's the last element no need
-        // to append "/"
-        if (st1.size() != 1)
-            res.append(temp + "/");
-        else
-            res.append(temp);
+    // vector is empty
+    if (ans == "")
+        return "/";
  
-        st1.pop();
-    }
- 
-    return res;
+    return ans;
 
     }
 };
