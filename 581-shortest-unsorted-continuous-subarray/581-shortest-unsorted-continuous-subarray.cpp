@@ -21,7 +21,8 @@ public:
                 break;
             }
         }
-        if(l == -1) return 0; // this means array is already sorted.
+        if(l == -1) 
+            return 0; // this means array is already sorted.
         int mini = arr[l], maxi = arr[l];
         for(int i = l; i <=r; i++) 
         {
