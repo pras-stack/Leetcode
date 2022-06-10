@@ -8,11 +8,13 @@ public:
         int right = 0;
  
         int res = 0;
-        while (right < s.length()) {
+        while (right < s.length()) 
+        {
             char r = s[right];
             chars[r]++;
  
-            while (chars[r] > 1) {
+            while (chars[r] > 1) 
+            {
                 char l = s[left];
                 chars[l]--;
                 left++;
