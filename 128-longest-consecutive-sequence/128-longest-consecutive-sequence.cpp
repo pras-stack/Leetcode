@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int longestConsecutive(vector<int>& nums)
+    /*int longestConsecutive(vector<int>& nums)
     {
 	unordered_set<int> s(begin(nums), end(nums)); // inserting all elements into hashset
 	int longest = 0;
@@ -38,7 +38,7 @@ We can form a solution without the need to spend time erasing elements from the 
 
 Instead of taking the first element that we find in the hashset and iterating both forward and backward, we can just keep skipping till we find that hashset contains num - 1. Finally, we can just iterate in the forward direction till we find consecutive elements in hashset and update longest at the end
 
-C++
+C++*/
 
 int longestConsecutive(vector<int>& nums) {
 	unordered_set<int> s(begin(nums), end(nums));
@@ -50,5 +50,5 @@ int longestConsecutive(vector<int>& nums) {
 		longest = max(longest, j);
 	}
 	return longest;
-} */
+} 
 };
