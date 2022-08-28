@@ -2,28 +2,24 @@ class Solution {
 public:
     vector<string> generateParenthesis(int n) 
     {
-        vector<string> parens;
-        string paren;
-        generate(n, 0, 0, paren, parens);
-        return parens;
-    }
-private:
-    void generate(int n, int l, int r, string paren, vector<string>& parens) 
+        vector<string> result;
+	if(n == 0)
     {
-        if (l == n && r == n) 
+		string empty = "";
+		result.push_back(empty);
+	}
+	else {
+		for(int closure = 0; closure < n; closure++) 
         {
-            parens.push_back(paren);
-        } 
-        else
-        {
-            if (l < n) 
+			for(auto left: generateParenthesis(closure)) 
             {
-                generate(n, l + 1, r, paren + '(', parens);
-            }
-            if (r < l)
-            {
-                generate(n, l, r + 1, paren + ')', parens);
-            }
-        }
+				for(auto right: generateParenthesis(n - closure - 1)) 
+                {
+					result.push_back("(" + left + ")" + right);
+				}
+			}
+		}
+	}
+	return result;
     }
 };
