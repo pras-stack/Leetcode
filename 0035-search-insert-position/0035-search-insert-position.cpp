@@ -2,14 +2,23 @@ class Solution {
 public:
     int searchInsert(vector<int>& nums, int target)
     {
-        int i=0;
-        for(i=0;i<nums.size();i++)
-        {
-            if(nums[i] == target)
-                break;
-            if(nums[i]>target)
-                break;
+       int left = 0;
+        int right = nums.size() - 1;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
         }
-        return i;
+        
+        return left;
     }
 };
+
+//This binary search approach ensures an efficient O(log n) runtime complexity to find the index where the target value would be inserted in the sorted array.
