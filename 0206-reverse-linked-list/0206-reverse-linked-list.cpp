@@ -12,28 +12,18 @@ class Solution {
 public:
     ListNode* reverseList(ListNode* head) 
     {
-        stack<ListNode*>st;  //coz we are pushing node's addresses here
-        
-        ListNode *curr = head;
-        
-        while(curr!=NULL)
-        {
-            st.push(curr);
-            curr= curr->next; //move to next node
-        }
-        
-        // Create a dummyHead to build the reversed list
-    ListNode* dummyHead = new ListNode(0);  // Create a dummy node to serve as the head of the reversed list
-    curr = dummyHead;  // Initialize a current pointer for the reversed list
+        ListNode* prev = nullptr;
+    ListNode* current = head;
     
-    // Pop nodes from the stack to build the reversed list
-    while (!st.empty()) {
-        curr->next = st.top();  // Connect the current node to the top node of the stack
-        curr = curr->next;  // Move the current pointer to the newly added node
-        st.pop();  // Pop the top node from the stack
+    while (current != nullptr) {
+        ListNode* nextNode = current->next; // Store the next node
+        current->next = prev; // Reverse the next pointer
+        
+        // Move the pointers to the next nodes
+        prev = current;
+        current = nextNode;
     }
     
-    curr->next = NULL;  // Set the next of the last node to NULL
-    return dummyHead->next;  // Return the head of the reversed list
+    return prev; // The new head of the reversed lis
     }
 };
