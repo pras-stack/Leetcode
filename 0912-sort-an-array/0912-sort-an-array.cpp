@@ -1,29 +1,48 @@
+#include <vector>
+
 class Solution {
 public:
-    void maxHeapify(vector<int>& nums, int n, int i){
-        int largest = i;
-        int left = (2 * i) + 1, right = (2 * i) + 2;
-        if(left < n && nums[left] > nums[largest])
-            largest = left;
-        if(right < n && nums[right] > nums[largest])
-            largest = right;
-        if(largest != i){
-            swap(nums[largest], nums[i]);
-            maxHeapify(nums, n, largest);
+    void mergeSort(std::vector<int>& nums, int left, int right) {
+        if (left < right) {
+            int mid = left + (right - left) / 2;
+            mergeSort(nums, left, mid);
+            mergeSort(nums, mid + 1, right);
+            merge(nums, left, mid, right);
         }
     }
 
-    void heapSort(vector<int>& nums, int n){
-        for(int i = n/2-1; i >= 0; i--)
-            maxHeapify(nums, n, i);
-        for(int i = n-1; i >= 0; i--){
-            swap(nums[0], nums[i]);
-            maxHeapify(nums, i, 0);
+    void merge(std::vector<int>& nums, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        std::vector<int> L(n1);
+        std::vector<int> R(n2);
+
+        for (int i = 0; i < n1; ++i)
+            L[i] = nums[left + i];
+        for (int j = 0; j < n2; ++j)
+            R[j] = nums[mid + 1 + j];
+
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                nums[k++] = L[i++];
+            } else {
+                nums[k++] = R[j++];
+            }
+        }
+
+        while (i < n1) {
+            nums[k++] = L[i++];
+        }
+
+        while (j < n2) {
+            nums[k++] = R[j++];
         }
     }
 
-    vector<int> sortArray(vector<int>& nums) {
-        heapSort(nums, nums.size());
+  vector<int> sortArray(std::vector<int>& nums) {
+        mergeSort(nums, 0, nums.size() - 1);
         return nums;
     }
 };
